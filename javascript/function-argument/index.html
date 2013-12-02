@@ -1,0 +1,26 @@
+<html>
+<head>
+	<title>Function Arguments</title>
+</head>
+<body>
+<h1>Function argument</h1>
+<p>This will log the total of all arguments passed to a function.</p>
+<p>You could make it check value types etc and do custom things with the values. Similar to jquery.</p>
+
+
+<script>
+	function add(){
+		
+		var x = 0;
+		for( var i=0; i < arguments.length; i++ ){
+			x = x + arguments[i];
+		}
+
+		return x;
+	}
+	total = add(1,4,5);
+	console.log(total);
+</script>
+
+</body>
+</html>

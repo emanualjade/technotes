@@ -1,0 +1,80 @@
+# CREATE A TWEET
+	t = Tweet.new
+	t.status = "I love brains"
+	t.save
+	# ALT SYNTAX
+		t = Tweet.new(:status => "I heart brains", :zombie => "Jim")
+		t.save
+	# ALT SYNTAX
+		t = Tweet.create(:status => "I heart brains", :zombie => "Jim")
+
+# RETRIEVE A TWEET
+	t = Tweet.find(3) # find by id
+	Tweet.find(2, 3, 5) # Returns an array
+	Tweet.first # Returns the first tweet
+	Tweet.last # Returns the last tweet
+	Tweet.all # Returns all the tweets
+	Tweet.count # Returns number of tweets
+	Tweet.order(:zombie) # All ordered by zombie
+	Tweet.limit(10) # Only 10 tweets
+	Tweet.where(:zombie => "ash") # Only tweets by Ash
+	Tweet.where(:zombie => "ash").order(:zombie).limit(10) # Method chaining
+
+# UPDATE A TWEET
+	t = Tweet.find(3)
+	t.zombie = "EyeballChomper"
+	t.save
+	# ALT SYNTAX
+		t = Tweet.find(2)
+		t.attribute = {
+			:status => "Can I munch your eyeballs?",
+			:zombie => "EyeballChomper"
+		}
+		t.save
+	# ALT SYNTAX
+		t = Tweet.find(2)
+		t.update_attribute = {
+			:status => "Can I munch your eyeballs?",
+			:zombie => "EyeballChomper"
+		}
+
+# DELETE A TWEET
+	t = Tweet.find(3)
+	t.destroy
+	Tweet.destroy_all # destroy all the tweets
+
+
+# DISPLAY A TWEET
+	puts t[:status] OR puts t.status
+
+
+# MAPPING TWEETS TO ZOMBIES
+	class Tweet < ActiveRecord::Base
+		belongs_to :zombie
+	end
+	class Zombie <ActiveRecord::Base
+		has_many :tweets
+	end
+z = Zombie.find(2) # zombie id: 2, name: "bob", graveyard: "Chapel Hill"
+t = Tweet.create(:status => "Your eyelids taste like bacon", :zombie => z)
+t.zombie # Zombie id: 2, name: "bob", graveyard: "Chapel Hill"
+t.zombie.name # "bob"
+bob = Zombie.find(2)
+bob.tweets.count # 4
+bob.tweets # returns an array of Tweets Tweet id: 1, Status: "OMG Brains"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

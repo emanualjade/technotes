@@ -1,0 +1,206 @@
+RENDER
+- default is to RENDER a view with the action name
+- render_to_string - returns a string instead of sending response to the browser
+- to render a view corresponding to a different action in the controller you can use: (note that 
+rails does not actually run any of the code for that action in the controller.)
+	render "edit"
+	render :edit
+	render :action => "edit"
+- to render a view corresponding to a entirely different controller use:
+	render "products/show"
+	render :template => "products/show"
+- to render a view entirely outside your application use an absolute path
+	render "/u/apps/warehouse_app/current/app/views/products/show"
+	render :file => "/u/aps/.../products/show"
+- to send plain text back to the browser. the text is rendered without using the current layout
+if you want to use the current layout you need to use :layout => true
+	render :text => "OK"
+- to render inline erg use :inline (bad practice) 
+	render :inline => "<% products.each do |p| %><p><%= p.name %></p><% end %>"
+- to render json to the browser
+	render :json => @product
+- to render to xml
+	render :xm => @product
+- to render vanilla javascript - this will send with MIME type of text/javascript
+	render :js => "alert('Hello Rails');"
+
+RENDER OPTIONS
+:content_type
+	- default is text/html
+	- default for json is application/json
+	- default for xml is application/xml
+	change the content type
+	- render :file => filename, :content_type => 'application/rss'
+:layout
+	use :layout to specify a file to use as the layout for the action
+		render :layout => 'special_layout'
+	render with no layout
+		render :layout => false 
+:status
+	render :status => 500
+	render :status => forbidden
+	
+:location
+	set the HTTP location header
+		render :xml => photo, :location => photo_url(photo)
+
+FINDING LAYOUTS
+- by default rails looks for a layout with the controller name
+	PhotosController looks for app/views/layouts/photos.erb
+- if there is no layout with the same name as controller it uses
+	app/views/layouts/application.html.erb
+- specifying Layouts for controllers
+	Class ProductsController < applicationController
+		layout "inventory"
+	end
+- specifying a layout for the entire application
+	Class ApplicationController < ActionController::Base
+		layout "main"
+	end
+- defer choice of layout until a request is processed
+	Class ProductsController < ApplicationController
+		layout :products_layout
+	private
+		dev products_layout
+			@current_user.special? "special" : "products"
+		end
+- Conditional Layouts support the :only and :except options
+	Class ProductsController < ApplicationController
+		layout "product", :except => [:index, :rss]
+	end
+
+USING REDIRECT TO
+redirect_to tells the browser to send a new request for a different URL
+default status code for redirect is 302
+- simple redirect
+	redirect_to photos_url
+- redirect back to the page they just came from
+	redirect_to :back
+- use a different status code
+	redirect_to photos_path, :status => 301
+
+USING HEAD TO BUILD HEADER-ONLY RESPONSES
+The head method can be used to send responses with only headers to the browser
+It provides a more obvious alternative to calling render :nothing
+	head :bad_request
+	head :created, location => photo_path(@photo)
+
+STRUCTURING LAYOUTS
+ASSET TAGS
+	•	auto_discovery_link_tag - builds html that most browsers can use to detect the presence of RSS or ATOM feeds.
+	⁃	<%= auto_discovery_link_tag(:rss, {:action => "feed"},{:title => "RSS Feed"}) %>
+	⁃	:del specifies the del value in the link. The default value is "alternate"
+	⁃	:type specifies an explicit MIME type.
+	⁃	:title specifies the title of the link
+	•	javascript_include_tag
+	⁃	to link to a JavaScript file that is inside a directory called javascripts inside of one of app/assets, lib/assetsor vendor/assets, you would do this:
+	⁃	<%= javascript_include_tag "main" %>
+	⁃	To include multiple files such as app/assets/javascripts/main.js andapp/assets/javascripts/columns.js at the same time:
+	⁃	<%= javascript_include_tag "main", "columns" %>
+	⁃	To include app/assets/javascripts/main.js andapp/assets/javascripts/photos/columns.js:
+	⁃	<%= javascript_include_tag "main", "/photos/columns" %>
+	⁃	combine multiple files into a single download with :cache
+	⁃	<%= javascript_include_tag :all, :cache => true %>
+	•	stylesheet_link_tag
+	⁃	Essentially the same as js
+	•	image_tag - loaded from public/images
+	⁃	image_tag "header.png"
+	⁃	image_tag "icons/delete.gif"
+	⁃	image_tag "home.gif", {:height => 45}
+	⁃	image_tag "home.gif", :alt => "home"
+	⁃	image_tag "home.gif", :size => "50x20"
+	⁃	image_tag "home.gif", :alt => "Go Home", :id => "HomeImage", :class => "nav-bar"
+	•	video_tag
+	•	audio_tag
+
+UNDERSTANDING YEILD
+- Yield identifies a section where content from the view should be inserted
+	<%= yield %>
+- You can create a layout with multiple yielding regions
+   <html>
+  	<head>
+  	<%= yield :head %>
+  	</head>
+	  <body>
+  	   <%= yield %>
+      </body>
+   </html>
+
+- to render content into a named yield use the content_for method
+	<% content_for :head do %>
+		<title>A simple page</title>
+	<% end %>
+	<p>Hello, Rails!</p>
+
+USING PARTIALS
+- render a file named _menu.html.erb
+	<%= render "menu" %>
+- render a partial from within a folder
+	<%= render "shared/menu" %>
+- A partial can use it's own layout file - look for a partial named _link_area.html.erb and render it using the layout _graybar.html.erb
+	<%= render :partial => "link_area", :layout => "graybar" %>
+- passing local variables into partials
+	<%= render :partial => "form", :locals => { :zone => @zone } %>
+- every partial has a local variable with the same name as the partial minus the underscore. you can pass an object in to this local variable via the :object option. Within the customer partial, the customer variable will refer to @new_customer from the parent view
+	<%= render :partial => "customer", :object => @new_customer %>
+- If you have an instance of a model to render into a partial you can use shorthand syntax. Assuming that @customer instance variable contains an instance of the Customer model this will use _customer.html.erb to render it and will pass the local variable customer.
+	<%= render @customer %>
+- When you pass a collection to a partial via :collection the partial will be inserted once for each member in the collection
+	<%= render :partial => "product", :collection => @products %>
+- Shorthand for collection - pluralized - assuming @products is a collection of product instances you can write.
+	<%= render @products %>
+- using multiple partials - in this case rails will use either customer or employee partials as appropriate for each member of the collection
+	<%= render [customer1, employee1, customer2, employee2] %>
+- use a custom local variable in a partial with the :as option. In this case you can access an instance of the @products collection as the 'item' local variable
+	<%= render :partial => "product", :collection => @products, :as => :item %>
+- You can pass in arbitrary local variables to any partial with :locals => {}
+	<%= render :partial => 'products', :collection => @products,
+           :as => :item, :locals => {:title => "Products Page"} %>
+- counter - rails makes a counter variable available within a parial named after the collection followed by _counter. if you were rendering @products the counter would be product_counter. This does not work with the :as => :value
+- Spacer Templates - Render the _product_ruler with no data passed into it between each pair of product partials
+	<%= render :partial => @products, :spacer_template => "product_ruler" %>
+
+USING NESTED LAYOUTS
+- see rails guides
+
+FORM BASICS
+- basics form - called like this will post to current paye
+	<%= form_tag do %>
+		Form contents
+	<% end %>
+- with options
+	form_tag({:controller => "people", :action => "search"}, :method => "get", :class => "nifty_form")
+- checkboxes
+	<%= check_box_tag(:pet_dog) %>
+	<%= label_tag(:pet_dog, "I own a dog") %>
+	<%= check_box_tag(:pet_cat) %>
+	<%= label_tag(:pet_cat, "I own a cat") %>
+- radio buttons
+	<%= radio_button_tag(:age, "child") %>
+	<%= label_tag(:age_child, "I am younger than 21") %>
+	<%= radio_button_tag(:age, "adult") %>
+	<%= label_tag(:age_adult, "I'm over 21") %>
+- other form helpers
+<%= text_area_tag(:message, "Hi, nice site", :size => "24x6") %>
+<%= password_field_tag(:password) %>
+<%= hidden_field_tag(:parent_id, "5") %>
+<%= search_field(:user, :name) %>
+<%= telephone_field(:user, :phone) %>
+<%= url_field(:user, :homepage) %>
+<%= email_field(:user, :address) %>
+
+- WITHOUT THE *_tag - the first argument is the name of an instance variable and the second is the name of a method. Rails will set the value of the input control to the return value of that method for the object. Upon form submission the value entered by the user will be stored in params[:person][:name]
+	<%= text_field(:person, :name) %>
+	<input id="person_name" name="person[name]" type="text" value="Henry"/>
+
+- Binding a Form to an Object - If person has many attributes to edit then we would be repeating the name of the edited object many times. Instead user form_for.
+<%= form_for @article, :url => { :action => "create" }, :html => {:class => "nifty_form"} do |f| %>
+  <%= f.text_field :title %>
+  <%= f.text_area :body, :size => "60x12" %>
+  <%= f.submit "Create" %>
+<% end %>
+<form accept-charset="UTF-8" action="/articles/create" method="post" class="nifty_form">
+  <input id="article_title" name="article[title]" size="30" type="text" />
+  <textarea id="article_body" name="article[body]" cols="60" rows="12"></textarea>
+  <input name="commit" type="submit" value="Create" />
+</form>

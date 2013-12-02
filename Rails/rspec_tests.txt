@@ -1,0 +1,13 @@
+# indicates that we are describing the homepage
+    describe "Home page"
+
+#visit a page - using capybara function visit
+    visit '/static_pages/home'
+
+# a page should have content - page variable provided by capybara
+    page.should have_content('Sample App')
+
+# checks for an HTML element (the “selector”) with the given content. The content need not be an exact match; any substring works as well
+    page.should have_selector('title',
+                        :text => "Ruby on Rails Tutorial Sample App | Home")
+

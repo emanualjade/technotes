@@ -1,0 +1,47 @@
+MOBILE WEB STRATEGIES
+1. Fluid Layouts
+    - Based on fluid grid
+
+2. Adaptive Design
+3. Responsive Design
+4. Custom URL with dedicated mobile site
+5. HTML5 APP within a shell
+
+
+How to Calculate Fluid widths of Elements for bootstrap.
+Lets say you want five evenly spaced products. 
+The bootstrap grid doesn't make this easy.
+You can use this to calculate your percentages
+
+ELEMENTS
+1170px - site width
+5 elements - floated left
+30 pixels margin left between each element exept on the first
+10 pixels padding on each element
+
+CALCULATIONS
+30px margins x 4 = 120px //(margin width) X (number of margins)
+1170 - 120 = 1050 // (container width) - (total margins width)
+1050 / 5 = 210 // (container width after margins) / (number of elements)
+210 - (10*2) // (container width) - (total padding on element)
+margin: 30px
+padding: 10px
+container: 190px
+
+SET PERCENTAGE BASED WIDTH FOR MARGINS PADDING AND WIDTH
+Element width = (190 / 1170) * 100 = 16.23931623%
+Margin width = (30 / 1170) * 100 = 2.56410256%;
+padding: (10 / 1170) * 100 = 0.85470085%
+
+8684210526
+
+YOUR CSS MIGHT LOOK LIKE THIS
+.popular-store{
+    width:  16.23931623%;
+    margin-left: 2.56410256%;
+    padding: 0.85470085%
+    float: left;
+}
+.popular-store:first-child{
+    margin-left: 0px;
+}

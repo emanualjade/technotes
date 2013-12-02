@@ -1,0 +1,66 @@
+<html>
+<head>
+  <title>Revealing Prototype Pattern</title>
+</head>
+<body>
+<h1>Revealing Prototype Pattern</h1>
+<h2>Pros</h2>
+<ul>
+  <li>Combines Prototype and Revealing Module Patterns</li>
+  <li>Modularize code inte re-useable objects</li>
+  <li>Variable/functions taken out of global namespace</li>
+  <li>Expose only public members</li>
+  <li>Functions loaded into memory once</li>
+  <li>Extensible</li>
+</ul>
+
+<div id="eqCtl"></div>
+
+<script>
+
+var Calculator = function(eq){
+  //variables defined here
+  this.eqCtl = document.getElementById(eq);
+  this.someMessage = 'My special message';
+};
+
+Calculator.prototype = function(){
+  
+  var add = function( x, y ){
+    var val = x + y;
+    // When using this pattern you need to use call 
+    // when calling another function to keep the context
+    // of 'this' as refering to the object
+    // this is explained clearly in pluralsight course structuring js
+    outtputToScreen.call( this, val );
+    alertMessage( val )
+    alertMessage.call( this, val )
+  },
+  outtputToScreen = function(val){
+    this.eqCtl.innerHTML = val;
+  },
+  alertMessage = function( val ){
+    alert( this.someMessage + ' ' + val);
+  }
+  
+  return {
+    add: add
+  };
+
+}();
+
+calc = new Calculator('eqCtl')
+calc.add( 2, 2 )
+
+// YOU CAN EXTEND, OVERRIDE, OR ADD NEW FUNCTIONALITY 
+// WITHOUT HAVING TO TOUCH YOUR ORIGINAL CODE.
+Calculator.prototype.subtract = function( x, y ){
+  var val = x - y;
+  alert( 'subtraction value from extending ' + val );
+}
+calc.subtract( 65, 5 );
+
+</script>
+
+</body>
+</html>

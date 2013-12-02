@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Traced Bird Ad</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+	    $("#logo").addClass("anim-logo");
+	    $("#gradient").addClass("gradient-anim");
+    });
+</script>
+<style>
+#outerWrapper {
+	width: 1000px;
+	margin: 30px auto;
+	position: relative;
+	-webkit-perspective: 500px;
+	-moz-perspective: 500px;
+	-o-perspective: 500px;
+	perspective: 500px;
+	overflow: hidden;
+}
+#logo {
+	position: absolute;
+	top: 37px;
+	left: 39px;
+	-webkit-transition: all 3s cubic-bezier(0.950, 0.050, 0.795, 0.035);
+	-moz-transition: all 3s cubic-bezier(0.950, 0.050, 0.795, 0.035);
+	-o-transition: all 3s cubic-bezier(0.950, 0.050, 0.795, 0.035);
+	transition: all 3s cubic-bezier(0.950, 0.050, 0.795, 0.035);
+	-webkit-transition-delay: 1s;
+	-moz-transition-delay: 1s;
+	-o-transition-delay: 1s;
+	transition-delay: 1s;
+}
+#swoosh {
+	position: absolute;
+	left: 0;
+	top: 0;	
+}
+#gradient {
+	position: absolute;
+	left: 1392px;
+	top: 34px;	
+	-webkit-transition: all .5s ease-in-out;	
+	transition: all .5s ease-in-out;
+}
+#gradient.gradient-anim {
+	left: 392px;
+	top: 34px;	
+}
+#text {
+	position: absolute;
+	left: 486px;
+	top: 178px;	
+}
+.wheel {
+}
+#black_wheel {
+	position: absolute;
+	left: 434px;
+	top: 10px;	
+}
+#red_wheel {
+	position: absolute;
+	left: 618px;
+	top: 10px;	
+}
+#silver_wheel {
+	position: absolute;
+	left: 807px;
+	top: 10px;	
+}
+.anim-logo {
+	-webkit-transform: rotateY(-720deg);
+	-moz-transform: rotateY(-720deg);
+	-o-transform: rotateY(-720deg);
+	transform: rotateY(-720deg);
+}
+</style>
+</head>
+
+<body class="loaded">
+<div id="outerWrapper"><img src="_images/Traced%20Bird%20FMA.png" width="1000" height="260" alt="Traced Bird">
+  <div id="logo"><img src="_images/birds.png" width="312" height="198" alt="logo"></div>
+  <div id="swoosh"><img src="_images/swoosh.png" width="754" height="227" alt=""></div>
+  <div id="gradient"><img src="_images/gradient.png" width="614" height="108" alt=""></div>
+  <div id="text"><img src="_images/text.png" width="424" height="59" alt=""></div>
+  <div id="black_wheel" class="wheel"><img src="_images/black_wheel.png" width="159" height="159" alt=""></div>
+  <div id="red_wheel" class="wheel"><img src="_images/red_wheel.png" width="159" height="159" alt=""></div>
+  <div id="silver_wheel" class="wheel"><img src="_images/silver_wheel.png" width="159" height="159" alt=""></div>
+</div>
+</body>
+</html>

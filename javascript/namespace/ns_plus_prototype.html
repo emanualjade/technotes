@@ -1,0 +1,29 @@
+<html>
+<head>
+  <title>Namespace Pattern</title>
+</head>
+<body>
+<h1>Namespace Pattern</h1>
+<p>This pattern applies a namespace to the prototype pattern</p>
+<div id="eq"></div>
+<script>
+
+var myNS = myNS || {};
+
+myNS.Calculator = function (eq){
+  this.eqCtl = document.getElementById(eq);
+};
+myNS.Calculator.prototype = {
+  add: function( x, y ){
+    var val = x + y;
+    this.eqCtl.innerHTML = val;
+  }
+}
+
+var c = new myNS.Calculator('eq');
+c.add( 2, 2 );
+
+</script>
+
+</body>
+</html>

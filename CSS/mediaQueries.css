@@ -1,0 +1,242 @@
+/* 
+ON DESKTOPS AND LAPTOPS
+  - width and height refer to the size of the browser viewport
+  - device-width and device-height refer to the dimensions of the monitor
+ON MOBILE DEVICES
+  - Mobile browsers fill the available screen, so you might expect width 
+    and device-width to be the same Unfortunately, that's not always the case
+  - Most smart phones set width to a nominal viewport approximately 1,000 pixels 
+    wide (in an iPhone and iPod touch, it's 980 pixels, Windows Phone 7 uses 1024 pixels)
+  - iPhone, iPod touch, and iPad don't take orientation into account when calculating 
+    width, whereas other devices do.
+*/
+
+/* VIEWPORT
+To ensure all devices play the same make sure to set add this meta tag to your page 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+- This tells mobile devices to treat the viewport as being the same width as the 
+  physical width of the device.
+- It tells the iPhone, iPod touch, and iPad to take orientation into account when calculating width
+
+VIEWPORT PROPERTIES
+Property:           width
+Description:        The width of the viewport in pixels. The default is 980 on iphone. 
+Values:             The range is from 200 to 10,000
+                    device-width: The width of the device in pixels
+
+Property:           height
+description         The height of the viewport in pixels. 
+                    The default is calculated based on the value of the 
+                    width property and the aspect ratio of the device.      
+Values:             The range is from 223 to 10,000 pixels.
+                    device-height: The height of the device in pixels
+
+Property:           initial-scale
+description:        The initial scale of the viewport as a multiplier. 
+                    The default is calculated to fit the webpage in the visible area.
+
+Property:           minimum-scale
+Description:        Specifies the minimum scale value of the viewport. 
+                    The default is 0.25. The range is from >0 to 10.0.
+
+Property:           maximum-scale
+Description:        Specifies the maximum scale value of the viewport. 
+                    The default is 5.0. The range is from >0 to 10.0
+
+Property:           user-scalable
+Description         Determines whether or not the user can zoom in and out—whether 
+                    or not the user can change the scale of the viewport. Set to 
+                    yes to allow scaling and no to disallow scaling. The default 
+                    is yes. Setting user-scalable to no also prevents a webpage 
+                    from scrolling when entering text in an input field.
+*/
+
+
+/* WHAT CAN YOU TARGET WITH MEDIA QUERIES?
+
+width:      
+  Value:        Length                  
+  Min/Max:      Yes       
+  Description:  Width of display area
+
+height
+  Value:        Length
+  Min/Max:      Yes       
+  Description:  Height of display area
+
+device-width:
+  Value:        Length
+  Min/Max:      Yes
+  Description:  Width of device
+
+device-height
+  Value:        Length
+  Min/Max:      Yes
+  Description:  Height of device
+
+orientation
+  Value:        portrait or landscape
+  Min/Max:      No
+  Description:  Orientation of device
+
+aspect-ratio
+  Value:        Ratio (w/h)
+  Min/Max       Yes       
+  Description   Ratio of width to height, expressed as two 
+                integers separated by a slash (e.g., 16/9)
+
+device-aspect-ratio  
+  value:        Ratio (w/h)  
+  Min/Max:      Yes   
+  Description:  Ratio of device-width to device-height
+
+device-pixel-ratio
+  value:        Integer
+  Min/Max:      Yes
+  Description:  is the ratio between physical pixels and device-independent 
+                pixels (dips) on the device. 
+                window.devicePixelRatio = physical pixels / dips
+
+color
+  Value:        Integer  
+  Min/Max:      Yes
+  Description:  Number of bits per color component 
+                (if not color, the value is 0)
+
+color-index
+  Value:        Integer
+  Min/Max:      Yes
+  Description:  Number of entries in the output device's 
+                color lookup table
+
+monochrome
+  Value:        Integer
+  Min/Max:      Yes
+  Description:  Number of bits per pixel in the monochrome 
+                frame buffer (if not monochrome, the value is 0)
+
+resolution
+  Value:        Resolution
+  Min/Max:      Yes
+  Description:  Density of pixels of output device, express as 
+                integer followed by dpi (dots per inch) or dpcm 
+                (dots per centimeter)
+scan
+  Value:        progressive or interlace
+  Min/Max:      No
+  Description:  Scanning process used by TV devices
+
+grid
+  Value:        0 or 1   
+  Min/Max:      No  
+  Description:  If set to 1, the device is grid-based, such as a teletype 
+                terminal or phone display with only one fixed font 
+                (all other devices are 0)
+/*
+/* Useful notes 
+    - Some media features, such as color , monochrome , and grid , can be used as conditions without specifying a value.
+       For example, the following targets all color visual displays: media="screen and (color)"
+    - There is no OR keyword to specify alternative media features. 
+      Instead, you list alternatives as a comma-separated list like this: 
+      media="screen and (min-width: 769px), print and (min-width: 6in)"
+      This applies styles to screens wider than 769 pixels or print devices using paper at least 6 inches wide.
+    - To specify a negative condition - use not like this:
+      media="not screen and (monochrome)"
+      You can't use not in front of an individual condition. The keyword must come at the beginning of the 
+      declaration, and it negates the whole declaration
+    - Hide media queries from older browsers using ONLY.
+      The keyword must come at the beginning of the declaration.
+      media="only screen and (min-width: 401px) and (max-width: 600px)"
+      An old browser expects a comma seperated list so should interpret the preceding example as this:
+      media="only"
+      Because there is no such media type as only , the style sheet is ignored. 
+*/
+
+/* LINKING WITH A MEDIA QUERY
+<link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 480px)" href="small-device.css" /> */
+
+/* USING @IMPORT WITH A MEDIA QUERY
+@import url("phone.css") only screen and (max-width:400px); /*
+
+/* 
+BOOTSTRAP MEDIA QUERIES */
+/*Landscape phones and down*/
+@media (max-width: 480px) { ... }
+
+/*Landscape phone to portrait tablet*/
+@media (max-width: 767px) { ... }
+
+/*Portrait tablet to landscape and desktop*/
+@media (min-width: 768px) and (max-width: 979px) { ... }
+
+/*Navbar Collapses for mobile*/
+@media (max-width: 979px) {...}
+/*Navbar visible on desktops*/
+@media (min-width: 980px) {...}
+
+/*Large desktop*/
+@media (min-width: 1200px) { ... }
+
+/* 
+CSS TRICKS */
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 480px) {
+/* Styles */
+}
+
+/* Smartphones (landscape) ----------- */
+@media only screen
+and (min-width : 321px) {
+/* Styles */
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen
+and (max-width : 320px) {
+/* Styles */
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px) {
+/* Styles */
+}
+
+/* iPads (landscape) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : landscape) {
+/* Styles */
+}
+
+/* iPads (portrait) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : portrait) {
+/* Styles */
+}
+
+/* Desktops and laptops ----------- */
+@media only screen
+and (min-width : 1224px) {
+/* Styles */
+}
+
+/* Large screens ----------- */
+@media only screen
+and (min-width : 1824px) {
+/* Styles */
+}
+
+/* iPhone 4 ----------- */
+@media
+only screen and (-webkit-min-device-pixel-ratio : 1.5),
+only screen and (min-device-pixel-ratio : 1.5) {
+/* Styles */
+}

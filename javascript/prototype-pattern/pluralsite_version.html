@@ -1,0 +1,29 @@
+<html>
+<head>
+  <title>Prototype Pattern</title>
+</head>
+<body>
+<h1>Prototype Pattern</h1>
+<p>This pattern allows creating new instances of an object without replicating the functions for each instance</p>
+<p>Comprised of a constructor and a prototype</p>
+
+<div id="eq"></div>
+
+<script>
+var Calculator = function (eq){
+  this.eqCtl = document.getElementById(eq);
+};
+Calculator.prototype = {
+  add: function( x, y ){
+    var val = x + y;
+    this.eqCtl.innerHTML = val;
+  }
+}
+
+var c = new Calculator('eq');
+c.add( 2, 2 );
+
+</script>
+
+</body>
+</html>

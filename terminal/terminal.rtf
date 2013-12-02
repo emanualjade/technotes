@@ -1,0 +1,237 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1038\cocoasubrtf360
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww20300\viewh15280\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+
+\f0\b\fs40 \cf0 Command Line\
+
+\b0\fs28 \
+
+\b echo 
+\b0 : outputs - echo 'hello world'\
+
+\b -n 
+\b0 : suppress the new line option - echo -n 'hello world'\
+
+\b ctrl a 
+\b0 : jump to beginning of the line\
+
+\b ctrl e 
+\b0 : jump to the end of the line\
+
+\b ctrl d
+\b0  : deletes text forward\
+
+\b ctrl k
+\b0  : deletes all text ahead of the cursor\
+
+\b ctrl u
+\b0  : deletes all text behind the cursor\
+
+\b ~ 
+\b0 : refers to the home directory\
+
+\b tab
+\b0  : autocompletion \
+
+\b pwd
+\b0  : prints path to working directory\
+
+\b ls 
+\b0 : shows the files in a directory\
+
+\b ls -l 
+\b0 : show a detailed list of contents in a directory\
+
+\b ls -a
+\b0  : show ALL the contents in a directory\
+
+\b ls -t
+\b0  : show the contents of a directory sorted by when they were last modified\
+
+\b open .
+\b0  : opens the current directory\
+
+\b open file.txt 
+\b0 : opens a file with the default application\
+
+\b open -a "sublime text 2" things.rtf 
+\b0 : the -a specifies to open a file with a given application\
+
+\b open -R things.rtf
+\b0  : open and reveal a file in the finder. The -R means to reveal.\
+
+\b open http://google.com 
+\b0 : opens a website in the default browser.\
+
+\b touch
+\b0  : create a file\
+
+\b mkdir
+\b0  : create a directory\
+
+\b cp file.txt newFile.txt
+\b0  : copies file.txt and makes a duplicate of it with the name newFile.txt\
+
+\b cp -r myDirectory myNewDirectory
+\b0  : copy a directory and create a new one. the -r means it's recursive.\
+
+\b mv myFile.txt ~/someDirectory/ 
+\b0 : moves a file to another directory\
+
+\b mv myFile.txt ~/someDirectory/myFile.bak 
+\b0 : moves a file to another directory and renames it\
+
+\b mv myFile.txt myRenamedFile.txt
+\b0  : Renames a file\
+
+\b mv myfile* newDirectory/ 
+\b0 : grabs all files that start with myFile and moves them into a directory\
+
+\b rm myFile.txt
+\b0  : Deletes a file\
+
+\b rmdir myDirectory :
+\b0  Deletes a directory as long as it has no contents\
+
+\b rm -r myDirectory :
+\b0  Deletes a directory recursively\
+
+\b ln -s myFile.txt symlinkforafile
+\b0  : creates a sym link for a file. -s means soft.\
+
+\b ln myFile.txt hardlinkforafile
+\b0  : creates a hard link for a file. If you rename the file later the link will not be broken.\
+
+\b find . -type f 
+\b0 : Find files recursively in our current directory that are of type file\
+
+\b find . -name "things.bak"
+\b0  : Find files in our current directory named things.bak\
+
+\b find . -name "*.txt" 
+\b0 : Find all the files in our current directory that ends in .txt\
+
+\b find . -iname "*.txt" 
+\b0 : Find all the files in our current directory that ends in .txt . The i before name means case insensitive\
+
+\b find . -size +2048
+\b0  : Find files in current directory greater than 1 Megabyte in size\
+
+\b find . -size -2048
+\b0  : Find files in current directory smaller than 1 Megabyte in size\
+
+\b find . -mtime -1
+\b0  : Find files in current directory that have a modification time less than one day old\
+
+\b find . -mtime +1
+\b0  : Find files in current directory that have a modification time more than one day old\
+
+\b find . -atime +1
+\b0  : Find files in current directory that have an access time more than one day old\
+
+\b find . -ctime -1
+\b0  : Find files in current directory that have a create time within the last day\
+
+\b find .  -iname "*.txt" -or -iname -and -mtime -1
+\b0  "*.rtf" : Finds all the txt and rtf files in the where the modification time is less than one day old\
+
+\b find . -iname "*.txt" -print -or -iname "myDirectory" -prune
+\b0  : Searches and excludes the myDirectory results\
+
+\b grep "hello" myFile.txt
+\b0  : searches myFile.txt for the content "hello"\
+
+\b grep -il "hello" myFile.txt
+\b0  : returns the names of the files that have the result\
+
+\b grep -ilr "hello" * 
+\b0 : Search across all files in current directory. Case insensitive. Show file names. Search recursively.\
+
+\b history | grep stuff 
+\b0 : Search the console history for any commands that contain 'stuff'\
+
+\b find . -name "*.txt" -exec grep -il "anxiety" \{\} \\; 
+\b0 : Find anxiety within files that end in .txt - recursively from current directory.\
+
+\b chmod g+w test.txt
+\b0  : make test.txt writeable for group\
+
+\b chmod o+w test.txt
+\b0  : make test.txt writeable for others\
+
+\b chmod a+x test.txt
+\b0  : make test.txt executable for all\
+
+\b chmod u+x test.txt : 
+\b0 make test.txt writable for user\
+
+\b chmod og-x test.txt
+\b0  : take away executable access for others and group\
+
+\b chmod g+x-w test.txt
+\b0  : take away write access and give execute access to group\
+
+\b chmod g=rwx test.txt
+\b0  : set group permissions to rwx\
+
+\b chmod g= test.txt
+\b0  : take away all permissions for group\
+
+\b chmod u=rw,g=,0=x test.txt 
+\b0 : set permissions for multiple users at once\
+
+\b chmod 744 test.txt
+\b0  : 4=read, 2=write, 1=execute. So we're setting u=rwx, group=r, o=r\
+
+\b chmod 700 test.txt
+\b0  : user gets rwr everyone else has no permissions.\
+
+\b echo "hello" > test2.txt 
+\b0 : redirect > the output of echo into the creation of test2.txt with the content hello\
+
+\b echo "hello" >> test2.txt 
+\b0 : append > the output of echo into test2.txt with the content hello again\
+
+\b ls fakefile 2> log
+\b0  : outputs the error to the file called log\
+
+\b ls fakefile 2>> log
+\b0  : appends the error to the file called log\
+
+\b ls Documents >> log 2>&1 
+\b0 : appends the errors and output into the log file\
+
+\b tr a e < test.txt
+\b0  : replace all the a's with e's in the file test.txt\
+
+\b cat test.txt | grep "happy"
+\b0  : Shows all the lines of text.txt that have happy in them.\
+
+\b ls -a | grep "\\."
+\b0  : show all the hidden files. the backslash escapes the special dot character\
+
+\b top -o cpu
+\b0  : show processes ordered by cpu usage.\
+
+\b ps -cvx
+\b0  : shows a snapshot of the processes\
+
+\b ps -cvx | grep "Google"
+\b0  : show a snapshot of google processes\
+
+\b kill 35157
+\b0  : shuts down a process with the id of 35157\
+
+\b kill -s KILL 35157
+\b0  : Immediately kills a process with the id of 35157\
+\
+\
+\
+MAKE CHANGES TO THE SYSTEM\
+
+\b defaults write com.apple.finder _FXShowPosixPathInTitle -bool YES\
+killall Finder
+\b0 \
+This makes the full path of a directory show in the title of the finder}

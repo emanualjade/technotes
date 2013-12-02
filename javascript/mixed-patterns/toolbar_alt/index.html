@@ -1,0 +1,39 @@
+<html>
+<head>
+  <title>Toolbar</title>
+  <style type="text/css">
+    .toolbar{
+      display: block;
+      background-color: #c6c6c6;
+      height: 50px;
+      padding: 5px;
+    }
+    .toolbar-item{
+      display: inline-block;
+      height: 50px;
+      width: 50px;
+      background-color: blue;
+    }
+    .active{
+      background-color: yellow;
+    }
+    .disabled{
+      background-color: gray;
+    }
+  </style>
+</head>
+<body>
+  <div id="myToolbar" class="toolbar">
+    <span class="toolbar-item"></span>
+    <span class="toolbar-item"></span>
+    <span class="toolbar-item"></span>
+  </div>
+
+  <div id="mySecondToolbar" class="toolbar">
+    <span class="toolbar-item"></span>
+    <span class="toolbar-item"></span>
+    <span class="toolbar-item"></span>
+  </div>
+  <script src="toolbar.js"></script>
+</body>
+</html>

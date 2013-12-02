@@ -1,0 +1,25 @@
+DEBUGGERS
+- weinre
+- Adobe Shadow
+
+SHAKE DETECTION
+https://github.com/alexgibson/shake.js
+https://github.com/shokai/js-iphone-shake-event/blob/master/iphone-shake-event.js
+http://isthisanearthquake.com/seismograph.html
+
+TESTING LIBS
+- QUnit
+- Jasmine
+- DominatorJS
+- ThumbsJS - simulate touch events
+
+STYLE/GUI
+- jquery mobile
+- sencha touch
+- dojo mobile
+- jo
+
+PERSISTENCE
+- Lawnchair
+- PersistJS
+-

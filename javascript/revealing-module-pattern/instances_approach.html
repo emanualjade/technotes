@@ -1,0 +1,38 @@
+<html>
+<head>
+  <title>Revealing Module Pattern</title>
+</head>
+<body>
+<h1>Revealing Module Pattern</h1>
+<h2>Pros</h2>
+<ul>
+  <li>Modularize code into re-useable objects</li>
+  <li>Variables/functions taken out of global namespace</li>
+  <li>Expose only public members while hiding private members</li>
+  <li>Cleaner way to expose public members</li>
+</ul>
+
+<div id="eqCtl"></div>
+
+<script>
+var Calculator = function(eq){
+  //private members
+  var eqCtl = document.getElementById(eq),
+        add = function( x, y ){
+          var val = x + y;
+          eqCtl.innerHTML = val;
+        };
+
+  return {
+    //expose public members
+    add: add
+  };
+};
+
+var calc = new Calculator('eqCtl');
+calc.add( 2, 2 );
+
+</script>
+
+</body>
+</html>

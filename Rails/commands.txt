@@ -1,0 +1,128 @@
+#RUNNING AND SETTING UP TESTS
+# To see what you can do with rake run in the command line
+rake -T
+
+#setup test file
+	$ rails generate integration_test user_pages
+
+#running a test on a file
+	$ bundle exec rspec spec/requests/static_pages_spec.rb
+#running a test on a directory
+	$ bundle exec rspec spec/requests/
+#running all tests
+	$ bundle exec rspec spec/
+#short way to run all tests
+	$ bundle exec rake spec
+# even shorter way to run the tests
+	$ bundle exec rake
+# shortest way to run the tests
+	$ rake
+
+#GENERATE A SCAFFOLD
+$ rails generate scaffold Post name:string title:string content:text
+
+#GENERATE A NEW CONTROLLER#
+
+# Generate a user controller with a 'new' action - also do not include the test files
+# Then Generate the integration tests
+	$ rails generate controller Users new --no-test-framework
+	$ rails generate integration_test user_pages
+
+#GENERATE A NEW MODEL WITH TWO ATTRIBUTES name AND email
+	$ rails generate model User name:string email:string
+	$ bundle exec rake db:migrate
+	$ bundle exec rake db:migrate:status
+	$ bundle exec rake db:test:prepare
+	$ bundle exec rake db:rollback #undo the last migration
+	$ bundle exec rake db:reset
+	$ bundle exec rake environment RAILS_ENV=test db:migrate
+#STEPS TO POPULATE THE DATABASE WITH USERS
+	$ bundle exec rake db:reset
+	$ bundle exec rake db:populate
+	$ bundle exec rake db:test:prepare
+#SETUP NEW PROJECT THAT HAS BEEN IN PROGRESS
+	$ rake db:schema:dump #creates schema file
+	$ rake db:setup #sets up the database using the schema file
+#REMOVE A COLUMN FROM THE DATABASE
+	$ railgs g migration RemoveAgeFromZombies age:integer
+
+# LOADING DEVELOPMENT ENVIRONMENT IN SANDBOX
+# ANY MODIFICATIONS YOU MAKE WILL BE ROLLED BACK ON EXIT
+	$ rails console --sandbox
+# You can also start console sandbox with this
+	$ bundle exec rails c -s
+# the console does not automatically reload your code changes to reloat type
+	$ reload!
+
+#ACTIVE RECORDS
+	$ user = User.new(name: "Michael Hartl", email: "mhartl@example.com")
+	$ user.save
+	$ user.name
+	$ foo = User.create(name: "A Nother", email: "another@example.org")
+	$ foo.destroy
+	$ User.find(1)
+	$ User.find(3)
+	$ User.find_by_email("mhartl@example.com")
+	$ User.first
+	$ User.all
+	$ user.email = "mhartl@example.net"
+	$ user.save
+	$ user.email
+	$ user.email = "foo@bar.com"
+	$ user.reload.email
+	$ user.update_attributes(name: "The Dude", email: "dude@abides.org")
+	$ user.valid?
+	$ user.errors.full_messages
+
+#GENERATE MIGRATION 
+	$ rails generate migration add_index_to_users_email
+	$ rails generate migration add_password_digest_to_users password_digest:string
+
+git push
+git push heroku
+heroku run rake db:migrate
+heroku open
+heroku logs
+
+
+#ADD NOTES
+	# TODO: Do stuff
+	# FIXME: Fix stuff
+	# OPTIMIZE: Optimize stuff
+	# JEPG2: Add custom tag and code
+#RETRIEVE NOTES	
+	$ rake notes:todo
+	$ rake notes:fixme
+	$ rake notes:custom ANNOTATION=JPEG
+
+
+
+START THE POSTGRES SERVER
+initdb /usr/local/var/postgres
+pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
+pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log restart
+
+
+RESTART POW SERVER - put this empty file in temp directory of your app
+touch tmp/restart.txt
+
+UNDOING THINGS
+  #undo generating a controller
+  $ rails generate controller FooBars baz quux
+  $ rails destroy  controller FooBars baz quux
+
+  #undo generating a model
+  rails generate model Foo bar:string baz:integer
+  rails destroy model Foo
+
+
+
+
+
+
+
+
+
+
+
+

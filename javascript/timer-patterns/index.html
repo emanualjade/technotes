@@ -1,0 +1,31 @@
+<html>
+<head>
+	<title>Timer Patterns</title>
+</head>
+<body>
+	<ul>
+		<li>4ms is the smallest time period allowed - Delays of less than 4ms will be bumped up to 4ms</li>
+		<li>Timers wont start until the outer most function in which it was created is finished</li>
+		<li>Long running js can make an application appear frozen due to the single threaded nature of javascript. Splitting long-running code over setTimeout blocks releases the thread</li>
+	</ul>
+<script type="text/javascript">
+	function runMe(){
+		
+		console.log('A');
+
+		setTimeout(function(){
+			console.log('1');
+		},0);
+		setTimeout(function(){
+			console.log('2');
+		},0);
+		setTimeout(function(){
+			console.log('3');
+		},0);
+
+		console.log('B');
+	}
+	runMe();
+</script>
+</body>
+</html>

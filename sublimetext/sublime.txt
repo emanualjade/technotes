@@ -1,0 +1,25 @@
+# Ruby MultiLine Comments
+    Command + /
+# Find a file
+    Command + P
+# Multi-Selection
+    alt or command + click
+# Select a block of lines
+    Select block then press Shift + Command + L
+# Select word multiple times
+    Place cursor over word press Control/Command + D
+# Select all occurences of a word
+    Ctrl + Command + G
+# Align = signs
+    Command + ctrl + A
+# Distraction free editing
+    Control + Shift + Command + F
+# Find a function
+    Command + R : use the @function
+# Find a section of the page
+    Command + P : use the #tag
+# Find a file
+    Command + P : search for file name
+# Go to a line number
+    ctrl + G : type line number
+    Command + P : use the :200 linke number
