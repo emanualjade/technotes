@@ -1,7 +1,7 @@
 ## Configure the global settings
 git config --global user.name “Emanual Jade”
 
-git config --global user.email “emanualjade@gmail.com”
+git config --global user.email email@gmail.com”
 
 ## Initialize an empty repository
 
