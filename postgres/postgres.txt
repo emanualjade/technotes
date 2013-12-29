@@ -1,3 +1,21 @@
+# RUN TO SETUP BUFFER EDITOR
+export EDITOR="subl -w"
+
+
+# DATA TYPES
+Numerical - INTEGER, FLOAT, NUMERIC, REAL, SERIAL
+Character - CHAR, VARCHAR, TEXT
+Logical - BOOLEAN
+Temporal - DATE, TIME, TIMESTAMP, INTERVAL, TIMESTAMPTZ
+
+Binary - BYTEA, BIT, BIT VARYING
+Geo-Spatial - POINT, PATH, POLYGON, CIRCLE, LINE
+Internet - INET, CIDR, MACADDR
+
+Special - ENUM, RANGE, JSON, XML, OID
+Array - []
+Composite Type - TYPE
+
 # PSQL COMMANDS
 (options: S = show system objects, + = additional detail)
   \d[S+]                 list tables, views, and sequences
@@ -117,3 +135,99 @@ ABORT                            CLUSTER                          DEALLOCATE    
   BEGIN                            CREATE USER                      DROP USER                        VACUUM
   CHECKPOINT                       CREATE USER MAPPING              DROP USER MAPPING                VALUES
   CLOSE                            CREATE VIEW                      DROP VIEW                        WITH
+
+
+# EXAMPLE - create simple relation with tutorials and authors
+
+createdb tuts
+
+psql tuts
+
+create table authors ( name varchar(100) );
+
+alter table authors add column author_id serial primary key;
+
+create table tutorials(
+  tutorial_id serial primary key,
+  title text,
+  author_id integer references authors(author_id)
+)
+
+insert into tutorials(title, author_id) values('my first tutorial', 1);
+
+select tutorials.title, authors.name from tutorials join authors on tutorials.author_id = authors.author_id;
+
+drop table authors, tutorials;
+
+# EXAMPLE - Lifecycle of a table
+
+create table authors();
+
+alter table authors add column author_id serial primary key, add column name varchar(100);
+
+insert into authors(name) values ('net'), ('tuts'), ('web');
+
+alter table authors add column email varchar(100) not null default 'invalid@email.com';
+
+update authors set email='net@tuts.com' where name = 'net';
+
+delete from authors where name='web';
+
+create table tutorials();
+
+alter table tutorials
+add column tutorial_id serial primary key,
+add column title text,
+add column author_id integer,
+add constraint unique_title unique(title),
+add foreign key(author_id) references authors(author_id);
+
+insert into tutorials(title, author_id) values('my first article', null);
+
+update tutorials set author_id=1 where tutorial_id=1;
+
+# EXAMPLE - create a schema - delete a schema
+
+create schema temp;
+
+create table temp.test();
+
+set search_path=public,temp;
+
+drop schema temp cascade;
+
+set search_path=public;
+
+show search_path;
+
+
+# EXAMPLE 
+
+create type publish_state as enum('initial', 'approved', 'authored', 'edited', 'reviewed', 'scheduled', 'published');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
