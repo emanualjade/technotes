@@ -1,3 +1,9 @@
+# RESOURCES
+http://postgresguide.com/
+http://postgresweekly.com/
+http://www.postgresql.org/
+
+
 # RUN TO SETUP BUFFER EDITOR
 export EDITOR="subl -w"
 
@@ -204,12 +210,232 @@ show search_path;
 
 create type publish_state as enum('initial', 'approved', 'authored', 'edited', 'reviewed', 'scheduled', 'published');
 
+\dT --- to see the new datatype you just created above
+\dT+ --- to see the new datatype you just created above with more detail
+
+create table books(
+  book_id serial primary key,
+  price_usd numeric(4,2),
+  isbn varchar(20),
+  title text,
+  author_id integer references authors(author_id),
+  tags varchar(30)[],
+  publish_date date,
+  last_updated timestamp,
+  published boolean,
+  state publish_state
+);
+
+insert into books(price_usd) values (23.99);
+
+insert into books(title, tags) values ('Postgres Essentials', '{"sql", "video"}');
+
+select book_id, tags from books;
+
+update books set tags='{"a", "b", "c"}' where book_id=2;
+
+update books set tags[2]='changedMe' where book_id=2;
+
+update books set publish_date='2013-Jan-21' where book_id=2;
+
+select publish_date from books;
+
+select last_updated, publish_date from books;
+
+update books set last_updated='Apr 20 2013';
+update books set last_updated='Apr 20 2013 10:00AM';
+update books set last_updated='today';
+
+update books set published='true';
+update books set published='t';
+update books set published='1';
+update books set published='yes';
+update books set published='y';
+
+update books set published='false';
+update books set published='f';
+update books set published='0';
+update books set published='no';
+update books set published='n';
+select published from books;
+
+update books set state='approved';
+
+# EXAMPLE - JSON
+create table temp( col_json json );
+
+insert into temp(col_json) values ('{}');
+
+insert into temp(col_json) values ('{"firstname": "Pavan", "lastname": "Podila"}');
+
+select * from temp;
+
+# EXAMPLE 
+select row_to_json(row(title, tags)) from books;
+select array_to_json(tags) from books;
+
+# EXAMPLE 
+alter table temp add column col_xml xml;
+insert into temp(col_xml) values ('<hello>world</hello>');
+select col_xml from temp;
+update temp set col_xml='<hello><world>tuts</world></hello>';
+select xpath('//world', col_xml) from temp;
+select xpath('//world/text()', col_xml) from temp;
+
+# EXAMPLE
+select xmlelement(
+  name "Book",
+  xmlattributes(authors.name as "Author")
+)
+from books join authors
+on books.author_id = authors.author_id;
+
+# EXAMPLE
+select int4range(1,20);
+select numrange(1,20);
+select numrange(1,20) && numrange(10,30); // does it overlap - will return true
+select numrange(1,20) * numrange(10,30); // shows the overlap between the ranges
+select numrange(1,20) + numrange(10,30); // merges the ranges into a single range
+select numrange(1,20) - numrange(10,30); // removes the overlapping range
 
 
+# EXAMPLE
+update books set price_usd=100*random();
+select title, price_usd from books;
+select title, price_usd from books where '[1,49]'::numrange @> price_usd;
 
 
+# EXAMPLE
+create type address as (
+  street text,
+  state char(2),
+  country varchar(50),
+  postal_code varchar(10)
+);
+
+\dT;
+
+alter table temp add column address address;
+
+insert into temp(address) values ('("some street","NY","USA","10022")');
+
+select address from temp;
+
+insert into temp(address) values (row('some other street', 'NJ', 'USA', '08817'));
+
+update temp set address.country='Country on Mars';
+
+select (temp.address).street from temp;
+
+drop type address cascade;
+
+# EXAMPLE
+delete from books;
+delete from tutorials;
+delete from authors;
+alter sequence authors_author_id_seq restart with 1;
+
+copy authors(name, email) from '/Users/emanualjade/Desktop/authors.csv' delimiter '|' csv header;
+
+copy books(title, price_usd, tags, publish_date, author_id) from '/Users/emanualjade/Desktop/books.csv' delimiter '|' csv header;
+
+copy tutorials(title, author_id) from '/Users/emanualjade/Desktop/tutorials.csv' delimiter '|' csv header;
+
+select * from authors;
+select * from books;
+select * from tutorials;
+
+SELECT * FROM authors
+JOIN books ON authors.author_id=books.author_id
+ORDER BY authors.name;
+
+SELECT authors.name, books.title FROM authors
+JOIN books ON authors.author_id=books.author_id
+ORDER BY authors.name;
+
+SELECT a.name, count(t.tutorial_id) AS count
+FROM authors a JOIN tutorials t
+ON a.author_id=t.author_id
+GROUP BY a.name
+ORDER BY count desc
+LIMIT 3;
+
+SELECT 22.0/7 AS life_of_pi;
+
+SELECT * FROM (VALUES (1,2,3),(4,5,6),(7,8,9)) AS numbers(a,b,c);
+
+SELECT a.author_id, a.name
+FROM authors a JOIN books b ON a.author_id=b.author_id;
+
+SELECT DISTINCT a.author_id, a.name
+FROM authors a JOIN tutorials t ON a.author_id=t.author_id
+ORDER BY a.author_id;
+
+# EXAMPLE - Find book authors who are also tutorial authors
+
+SELECT b.author_id, t.name
+FROM books b JOIN
+(SELECT DISTINCT a.author_id, a.name
+FROM authors a JOIN tutorials t ON a.author_id=t.author_id) AS t
+ON b.author_id=t.author_id
+
+# EXAMPLE - create temporary table - alive for the lifetime of the session window
+CREATE TEMPORARY TABLE tutorial_authors AS
+SELECT DISTINCT a.author_id, a.name AS author_name
+FROM authors a JOIN tutorials t ON a.author_id=t.author_id;
+
+SELECT t.author_id, t.author_name FROM tutorial_authors t
+JOIN books ON books.author_id=t.author_id;
+
+# EXAMPLE - CTE - deleted as soon as it's used once
+WITH tutorial_authors AS (
+SELECT DISTINCT a.author_id, a.name AS author_name
+FROM AUTHORS a JOIN tutorials t ON a.author_id=t.author_id
+)
+
+SELECT t.author_id, t.author_name FROM tutorial_authors t
+JOIN books ON books.author_id=t.author_id;
 
 
+# EXAMPLE - table function
+
+CREATE OR REPLACE FUNCTION tutorial_authors(INT) RETURNS TABLE(author_id INT, author_name TEXT)
+AS $$
+SELECT DISTINCT a.author_id, a.name FROM authors a JOIN tutorials t ON a.author_id=t.author_id
+LIMIT $1
+$$ LANGUAGE SQL;
+
+SELECT * FROM tutorial_authors(2);
+
+DROP FUNCTION tutorial_authors(INT);
+
+
+# EXAMPLE - creating a view
+
+CREATE OR REPLACE VIEW tutorial_authors(author_id, author_name)
+AS
+SELECT DISTINCT a.author_id, a.name FROM authors a JOIN tutorials t
+ON a.author_id=t.author_id;
+
+SELECT * FROM tutorial_authors;
+
+DROP VIEW tutorial_authors;
+
+# EXAMPLE - hstore
+CREATE EXTENSION hstore;
+
+ALTER TABLE books
+ADD COLUMN sales hstore;
+
+UPDATE books SET sales='total_sales=>12134, peak_sales=>444, peak_sale_date=>"2012-12-25"' WHERE book_id=4;
+
+SELECT sales FROM books WHERE book_id=4;
+
+SELECT sales->'peak_sales' FROM books WHERE book_id=4;
+
+SELECT DATE(sales->'peak_sale_date') FROM books WHERE book_id=4;
+
+SELECT DATE(sales->'peak_sale_date')+365 FROM books WHERE book_id=4;
 
 
 
