@@ -1,0 +1,11 @@
+# To see what you can do with rake run in the command line
+rake -T
+
+# To see just the database tasks available
+rake -T db
+
+# To run a rake task within the context of a certain environment - development is default
+rake db:schema:dump RAILS_ENV=production
+
+# Custom Rake tasks typically go into /lib/tasks
+

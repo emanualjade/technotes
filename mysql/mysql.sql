@@ -12,3 +12,7 @@ SHOW GRANTS FOR 'simple_cms'@'localhost';
 mysql -u simple_cms -p simple_cms_development;
 
 DROP DATABASE simple_cms_development;
+
+SHOW TABLES;
+
+SHOW FIELDS FROM users;

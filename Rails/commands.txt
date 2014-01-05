@@ -1,6 +1,4 @@
 #RUNNING AND SETTING UP TESTS
-# To see what you can do with rake run in the command line
-rake -T
 
 #setup test file
 	$ rails generate integration_test user_pages
