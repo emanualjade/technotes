@@ -4,6 +4,19 @@ rails generate migration DoNothingYet
 # Generate a migration by creating a model
 rails generate model User
 
+# Generate a join table
+rails generate migration CreateAdminUsersPagesJoin
+def change # Add the following lines to your migration file
+  create_table :admin_users_pages do |t|
+    t.integer "admin_user_id"
+    t.integer "page_id"
+  end
+  add_index :admin_users_pages, ["admin_user_id", "page_id"]
+end
+
+# Generating a rich many to many
+rails generate model SectionEdit
+
 # Table migration methods
 create_table table, options do |t|
   #...columns...
@@ -162,8 +175,6 @@ end
 # * comment out the part of the migration that has run
 # * fix the broken part of that particular migration
 # * make sure to uncomment the lines once it's fixed
-
-
 
 
 

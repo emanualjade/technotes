@@ -1,0 +1,11 @@
+<!-- 
+View Form array variables: 
+-->
+<input type="text" name="subject[name]">
+<input type="text" name="subject[position]">
+<input type="text" name="subject[visible]">
+<!-- Controller -->
+params[:subject][:name]
+params[:subject][:position]
+params[:subject][:visible]
+subject = Subject.new(params[:subject])

@@ -1,3 +1,6 @@
+/*AWESOME SITE*/
+/*http://pieroxy.net/blog/2012/10/18/media_features_of_the_most_common_devices.html*/
+
 /* 
 ON DESKTOPS AND LAPTOPS
   - width and height refer to the size of the browser viewport
@@ -178,35 +181,23 @@ BOOTSTRAP MEDIA QUERIES */
 @media (min-width: 1200px) { ... }
 
 /* 
-CSS TRICKS */
+Device Dimensions */
+/*
+iphone: 3 - 320 X 480 - Device-pixel-ratio: 1
+iphone: 4 and 4s - 320 X 480 (640 X 960) - Device-pixel-ratio: 2
+iphone: 5 and 5s - 320 X 568 (640 X 1136) - Device-pixel-ratio: 2
+iPad mini: 768 X 1024
+*/
 
-/* Smartphones (portrait and landscape) ----------- */
-@media only screen 
-and (min-device-width : 320px) 
-and (max-device-width : 480px) {
-/* Styles */
-}
 
-/* Smartphones (landscape) ----------- */
-@media only screen
-and (min-width : 321px) {
-/* Styles */
-}
-
-/* Smartphones (portrait) ----------- */
-@media only screen
-and (max-width : 320px) {
-/* Styles */
-}
-
-/* iPads (portrait and landscape) ----------- */
+/* All iPads (portrait and landscape) ----------- */
 @media only screen
 and (min-device-width : 768px)
 and (max-device-width : 1024px) {
 /* Styles */
 }
 
-/* iPads (landscape) ----------- */
+/* All iPads (landscape) ----------- */
 @media only screen
 and (min-device-width : 768px)
 and (max-device-width : 1024px)
@@ -214,7 +205,7 @@ and (orientation : landscape) {
 /* Styles */
 }
 
-/* iPads (portrait) ----------- */
+/* All iPads (portrait) ----------- */
 @media only screen
 and (min-device-width : 768px)
 and (max-device-width : 1024px)
@@ -222,21 +213,81 @@ and (orientation : portrait) {
 /* Styles */
 }
 
-/* Desktops and laptops ----------- */
-@media only screen
-and (min-width : 1224px) {
-/* Styles */
-}
+/*Retina iPad in portrait & landscape*/
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px)
+and (-webkit-min-device-pixel-ratio: 2) { /* STYLES GO HERE */}
 
-/* Large screens ----------- */
-@media only screen
-and (min-width : 1824px) {
-/* Styles */
-}
+/*Retina iPad in landscape*/
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : landscape)
+and (-webkit-min-device-pixel-ratio: 2) { /* STYLES GO HERE */}
 
-/* iPhone 4 ----------- */
-@media
-only screen and (-webkit-min-device-pixel-ratio : 1.5),
-only screen and (min-device-pixel-ratio : 1.5) {
-/* Styles */
-}
+/*iPad 1 & 2 in portrait & landscape*/
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (-webkit-min-device-pixel-ratio: 1){ /* STYLES GO HERE */}
+
+/*iPad 1 & 2 in landscape*/
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : landscape)
+and (-webkit-min-device-pixel-ratio: 1)  { /* STYLES GO HERE */}
+
+/*iPad 1 & 2 in portrait*/
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : portrait) 
+and (-webkit-min-device-pixel-ratio: 1) { /* STYLES GO HERE */ }
+
+/*iPhone 5 in portrait & landscape*/
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 568px) { /* STYLES GO HERE */}
+
+/*iPhone 5 in landscape*/
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 568px) 
+and (orientation : landscape) { /* STYLES GO HERE */}
+
+/*iPhone 5 in portrait*/
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 568px) 
+and (orientation : portrait) { /* STYLES GO HERE */ }
+
+/*iPhone 2G-4S in portrait & landscape*/
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 480px) { /* STYLES GO HERE */}
+
+/*iPhone 2G-4S in landscape*/
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 480px) 
+and (orientation : landscape) { /* STYLES GO HERE */}
+
+/*iPhone 2G-4S in portrait*/
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 480px) 
+and (orientation : portrait) { /* STYLES GO HERE */ }
+
+
+
+
+
+
+
+
+
+
+
+
