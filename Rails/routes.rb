@@ -70,6 +70,50 @@ resources :items do
   concerns :sociable, only: :create
 end
 
+# ==================================================================
+# NON STANDARD ROUTES
+# ==================================================================
+
+resources :admin_users, :except => [:show]
+resources :products, :only => [:index, :show]
+
+# add additional actions to your resources
+resources :subjects do
+  member do
+    get :delete # delete_subject_path(:id)
+  end
+  collection do
+    get :export # export_subjects_path
+  end
+
+end
+
+# ==================================================================
+# NESTED RESOURCES
+# ==================================================================
+resources :subjects do
+  member do
+    get :delete
+  end
+  resources :pages do
+    member do
+      get :delete
+    end
+  end
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
