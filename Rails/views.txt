@@ -1,7 +1,7 @@
 RENDER
 - default is to RENDER a view with the action name
 - render_to_string - returns a string instead of sending response to the browser
-- to render a view corresponding to a different action in the controller you can use: (note that 
+- to render a view corresponding to a different action in the controller you can use: (note that
 rails does not actually run any of the code for that action in the controller.)
 	render "edit"
 	render :edit
@@ -15,7 +15,7 @@ rails does not actually run any of the code for that action in the controller.)
 - to send plain text back to the browser. the text is rendered without using the current layout
 if you want to use the current layout you need to use :layout => true
 	render :text => "OK"
-- to render inline erg use :inline (bad practice) 
+- to render inline erg use :inline (bad practice)
 	render :inline => "<% products.each do |p| %><p><%= p.name %></p><% end %>"
 - to render json to the browser
 	render :json => @product
@@ -35,11 +35,11 @@ RENDER OPTIONS
 	use :layout to specify a file to use as the layout for the action
 		render :layout => 'special_layout'
 	render with no layout
-		render :layout => false 
+		render :layout => false
 :status
 	render :status => 500
 	render :status => forbidden
-	
+
 :location
 	set the HTTP location header
 		render :xml => photo, :location => photo_url(photo)
