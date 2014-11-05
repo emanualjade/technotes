@@ -1,1 +1,1 @@
-Just random notes of tech stuff as I read books, do tutorials and build apps.
+Just random notes of tech stuff.
