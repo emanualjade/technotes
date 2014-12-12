@@ -1,5 +1,5 @@
 // This is a mixin pattern - it can be used to extend an object
-// we created our own extend method. You could just as easily use 
+// we created our own extend method. You could just as easily use
 // something like jquerys $.extend to do the same thing
 
 function extend(target){
@@ -57,4 +57,3 @@ john.walk();
 john.add();
 var fido = new Dog("Fido");
 fido.walk();
-

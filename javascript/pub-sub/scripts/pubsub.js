@@ -21,19 +21,19 @@ define(function(){
 				cache[id].push(fn);
 			}
 		},
-            unsub: function(id, fn){
-              var index;
-              
-              if(!id){
-                return;
-              }
+    unsub: function(id, fn){
+      var index;
 
-              if(!fn){
-                cache[id] = [];
-              }else{
-                cache[id] = cache[id].slice(0, index).concat( cache[id].slice(index + 1) );
-              }
+      if(!id){
+        return;
+      }
 
-            }
+      if(!fn){
+        cache[id] = [];
+      }else{
+        cache[id] = cache[id].slice(0, index).concat( cache[id].slice(index + 1) );
+      }
+
+    }
 	}
 });

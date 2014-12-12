@@ -1,5 +1,5 @@
 Contact = (function() {
-  
+
   var instances = [];
   var id = 0;
 
@@ -23,7 +23,7 @@ Contact = (function() {
     };
 
   };
-  
+
   Contact.prototype = {
     firstName: 'John',
     lastName: 'Doe',

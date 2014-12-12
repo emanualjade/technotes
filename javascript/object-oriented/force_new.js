@@ -1,10 +1,4 @@
-//ONE
-var car = {goes: "far"}
-
-//TW0
-var car = new Object();
-car.goes = "far"
-
+// FORCE new ON CONSTRUCTOR //
 // Force a constructor to user "new" in case it was called without it
 function User(first, last) {
   if (!(this instanceof arguments.callee)) {

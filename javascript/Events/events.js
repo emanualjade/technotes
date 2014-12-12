@@ -8,8 +8,6 @@ element.addEventListener(<event-name>, <callback>, <use-capture>);
 element.removeEventListener(<event-name>, <callback>, <use-capture>);
 
 
-
-
 // LIST OF BROWSER EVENTS
 /*
 
