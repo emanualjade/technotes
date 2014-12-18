@@ -122,11 +122,48 @@ var magicAnswer = Object.create(FirmAnswerPrototype);
 magicAnswer.constructor(3);
 magicAnswer.get(); // "3!!"
 
+// EXAMPLE
+var createPerson = function(firstName, lastName) {
+  var person = {
+    firstName : firstName,
+    lastName : lastName,
+    sayHello : function() {
+     return "Hi there.";
+    }
+  };
 
+  Object.defineProperty(person, "fullName", {
+    get : function() {
+     return this.firstName + " " + this.lastName;
+    },
+    enumberable : true,
+    configurable : true
+  });
 
+  return person;
+};
 
+var createEmployee = function(firstName, lastName, position) {
+  var person = createPerson(firstName, lastName);
 
+  person.position = position;
 
+  var fullName = Object.getOwnPropertyDescriptor(person, "fullName");
+
+  var fullNameFunction = fullName.get.bind(person);
+
+  Object.defineProperty(person, "fullName", {
+    get : function() {
+     return fullNameFunction() + ", " + this.position;
+    },
+    enumberable : true,
+    configurable : true
+  });
+
+  return person;
+};
+
+var johnDoe = createEmployee("John", "Doe", "Manager");
 
 
 
